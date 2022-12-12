@@ -2,8 +2,8 @@ import tkinter as tk
 
 HEIGHT = 350
 WIDTH = 400
-WORD = "word of the day"
-TEXT = "pull definition from dictionary"
+WORD = "word of the day" #using random package to get a word from the dictionary api to display here
+TEXT = "pull definition from dictionary" # use the word that is generated from the random functino in the csv file to put definitin here
 
 #initialize the window
 root = tk.Tk()
@@ -30,22 +30,6 @@ definition.place(relx=0.5, rely=0.35, relwidth=0.97, relheight=0.63, anchor="n")
 interactive_frame = tk.Frame(root, bg="#18c8ba")
 interactive_frame.place(relx=0.5, rely=0.6, relwidth=0.9, relheight=0.3, anchor="n")
 
-#drop down box top left remove button top right
-#textbox bottom left remove bottom right remove buttton
-
-#dropdown menu for removing words
-# make dropdown menu in alphabetical order
-list_of_words = [
-"hi", 
-"bye"
-]
-
-selection = tk.StringVar()
-selection.set(list_of_words[0])
-
-# dropdown_menu = tk.OptionMenu(interactive_frame, selection, *list_of_words)
-# dropdown_menu.place(relx=0.1, rely=0.3, relwidth=0.5, relheight=0.2)
-
 def remove_word():
     ...
     # lorem = Label(root, text=clicked.get())
@@ -60,7 +44,9 @@ text_box = tk.Entry(interactive_frame, font="arial 20")
 text_box.place(relx=0.03, rely=0.1, relwidth=0.6, relheight=0.8)
 
 def add_word():
-    ...
+    with open("words.txt", "a") as file:
+        file.write(text_box)
+
 
 add_button = tk.Button(interactive_frame, text="Add", command=add_word)
 add_button.place(relx=0.67, rely=0.5, relwidth=0.3, relheight=0.4)
