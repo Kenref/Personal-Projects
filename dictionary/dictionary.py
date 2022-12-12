@@ -31,10 +31,8 @@ interactive_frame = tk.Frame(root, bg="#18c8ba")
 interactive_frame.place(relx=0.5, rely=0.6, relwidth=0.9, relheight=0.3, anchor="n")
 
 def remove_word():
-    ...
-    # lorem = Label(root, text=clicked.get())
-    # lorem.pack()
-# use this section do add functionality for removing the word
+    with open("words.txt", "a") as file:
+        # to do tomorrow
 
 remove_button = tk.Button(interactive_frame, text="Remove", command=remove_word)
 remove_button.place(relx=0.67, rely=0.1, relwidth=0.3, relheight=0.4)
@@ -45,7 +43,10 @@ text_box.place(relx=0.03, rely=0.1, relwidth=0.6, relheight=0.8)
 
 def add_word():
     with open("words.txt", "a") as file:
-        file.write(text_box)
+        inpt = text_box.get()
+        if inpt.isalpha():
+            file.write(f"{inpt.lower()}\n")
+
 
 
 add_button = tk.Button(interactive_frame, text="Add", command=add_word)
@@ -61,7 +62,7 @@ add_button.place(relx=0.67, rely=0.5, relwidth=0.3, relheight=0.4)
 
 
 
-
+#find a way to check whether word is legit in the api to verify whether to add it in the words list or not
 
 
 root.mainloop()
