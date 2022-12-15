@@ -1,4 +1,6 @@
 import tkinter as tk
+import requests
+import json
 
 HEIGHT = 350
 WIDTH = 400
@@ -61,6 +63,14 @@ def add_word():
 add_button = tk.Button(interactive_frame, text="Add", command=add_word)
 add_button.place(relx=0.67, rely=0.5, relwidth=0.3, relheight=0.4)
 
+data = requests.get("https://www.dictionaryapi.com/api/v3/references/collegiate/json/carriage?key=b08a99f6-8ab5-49e4-95f0-9235e9ef2ec5")
+#replace hello with "+ word"
+
+word = data.json()
+
+# print(word[0]["def"][0]["sseq"][0][0][1]["dt"][0][1])
+for result in word[0]["def"][0]["sseq"][0]:
+    print(result)
 
 
 
@@ -70,6 +80,8 @@ add_button.place(relx=0.67, rely=0.5, relwidth=0.3, relheight=0.4)
 
 
 #everyday is a random with time
+# figure out how to make it send a text message every day
+
 
 #find a way to check whether word is legit in the api to verify whether to add it in the words list or not
 
