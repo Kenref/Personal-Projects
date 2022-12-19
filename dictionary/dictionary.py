@@ -2,9 +2,9 @@ import tkinter as tk
 import requests
 import json
 
-HEIGHT = 350
-WIDTH = 400
-WORD = "word of the day" #using random package to get a word from the dictionary api to display here
+HEIGHT = 450
+WIDTH = 500
+WORD = "Carriage" #using random package to get a word from the dictionary api to display here
 TEXT = "pull definition from dictionary" # use the word that is generated from the random functino in the csv file to put definitin here
 
 #initialize the window
@@ -22,12 +22,20 @@ background_label.place(relwidth=1, relheight=1)
 display_frame = tk.Frame(root, bg="#18c8ba", bd=5)
 display_frame.place(relx=0.5, rely=0.05, relwidth=0.9, relheight=0.5, anchor="n")
 
+#getting word definition from dictionary api
+data = requests.get(f"https://www.dictionaryapi.com/api/v3/references/collegiate/json/{WORD}?key=b08a99f6-8ab5-49e4-95f0-9235e9ef2ec5")
+
+#pulling the definitions
+jsonn = data.json()
+dictionary_defs = "1. " + jsonn[0]["shortdef"][0].title() + "\n" + "2. " + jsonn[0]["shortdef"][1].title() + "\n" + "3. " + jsonn[0]["shortdef"][2].title()
+
+
 #word of the day at the top
 word = tk.Label(display_frame, text=WORD, font="arial 30")
 word.place(relx=0.5, rely=0.02, relwidth=0.97, relheight=0.3, anchor="n")
 
 #word definition below wotd
-definition = tk.Message(display_frame, text=TEXT, font="arial 14") 
+definition = tk.Message(display_frame, text = dictionary_defs, font="arial 14", width="400") 
 definition.place(relx=0.5, rely=0.35, relwidth=0.97, relheight=0.63, anchor="n")
 
 #second window within window
@@ -62,15 +70,6 @@ def add_word():
 #add word button
 add_button = tk.Button(interactive_frame, text="Add", command=add_word)
 add_button.place(relx=0.67, rely=0.5, relwidth=0.3, relheight=0.4)
-
-data = requests.get("https://www.dictionaryapi.com/api/v3/references/collegiate/json/carriage?key=b08a99f6-8ab5-49e4-95f0-9235e9ef2ec5")
-#replace hello with "+ word"
-
-word = data.json()
-
-# print(word[0]["def"][0]["sseq"][0][0][1]["dt"][0][1])
-for result in word[0]["def"][0]["sseq"][0]:
-    print(result)
 
 
 
