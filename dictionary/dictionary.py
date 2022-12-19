@@ -4,7 +4,7 @@ import json
 
 HEIGHT = 500
 WIDTH = 550
-WORD = "camel" #using random package to get a word from the dictionary api to display here
+WORD = "carriage" #using random package to get a word from the dictionary api to display here
 TEXT = "pull definition from dictionary" # use the word that is generated from the random functino in the csv file to put definitin here
 
 #initialize the window
@@ -28,8 +28,10 @@ data = requests.get(f"https://www.dictionaryapi.com/api/v3/references/collegiate
 #pulling the definitions
 jsonn = data.json()
 jsonn = jsonn[0]["shortdef"]
-dictionary_defs = "\n".join([f'{n+1}. {list(d)[0]}' for n, d in enumerate(jsonn)])
-# dictionary_defs = "1. " + jsonn[0]["shortdef"][0].title() + "\n" + "2. " + jsonn[0]["shortdef"][1].title() + "\n" + "3. " + jsonn[0]["shortdef"][2].title()
+result = ""
+for indx, definition in enumerate(jsonn):
+    result += f"{indx + 1}: {''.join(definition)} \n"
+
 
 
 #word of the day at the top
@@ -37,7 +39,7 @@ word = tk.Label(display_frame, text=WORD, font="arial 30")
 word.place(relx=0.5, rely=0.02, relwidth=0.97, relheight=0.3, anchor="n")
 
 #word definition below wotd
-definition = tk.Message(display_frame, text = dictionary_defs, font="arial 14", width="400") 
+definition = tk.Message(display_frame, text = result, font="arial 14", width="400") 
 definition.place(relx=0.5, rely=0.35, relwidth=0.97, relheight=0.63, anchor="n")
 
 #second window within window
