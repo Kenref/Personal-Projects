@@ -2,9 +2,9 @@ import tkinter as tk
 import requests
 import json
 
-HEIGHT = 450
-WIDTH = 500
-WORD = "Carriage" #using random package to get a word from the dictionary api to display here
+HEIGHT = 500
+WIDTH = 550
+WORD = "camel" #using random package to get a word from the dictionary api to display here
 TEXT = "pull definition from dictionary" # use the word that is generated from the random functino in the csv file to put definitin here
 
 #initialize the window
@@ -27,7 +27,9 @@ data = requests.get(f"https://www.dictionaryapi.com/api/v3/references/collegiate
 
 #pulling the definitions
 jsonn = data.json()
-dictionary_defs = "1. " + jsonn[0]["shortdef"][0].title() + "\n" + "2. " + jsonn[0]["shortdef"][1].title() + "\n" + "3. " + jsonn[0]["shortdef"][2].title()
+jsonn = jsonn[0]["shortdef"]
+dictionary_defs = "\n".join([f'{n+1}. {list(d)[0]}' for n, d in enumerate(jsonn)])
+# dictionary_defs = "1. " + jsonn[0]["shortdef"][0].title() + "\n" + "2. " + jsonn[0]["shortdef"][1].title() + "\n" + "3. " + jsonn[0]["shortdef"][2].title()
 
 
 #word of the day at the top
