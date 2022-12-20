@@ -1,11 +1,19 @@
 import tkinter as tk
 import requests
-import json
+import time
+import random
+import schedule
 
+#picking a random word every day
+with open("words.txt") as file:
+    word_list = file.read()
+    word_list = word_list.split("\n")
+    wotd = random.choice(word_list[:-1])
+
+#setting size or window and word of the day
 HEIGHT = 500
 WIDTH = 550
-WORD = "carriage" #using random package to get a word from the dictionary api to display here
-TEXT = "pull definition from dictionary" # use the word that is generated from the random functino in the csv file to put definitin here
+WORD = wotd
 
 #initialize the window
 root = tk.Tk()
@@ -14,6 +22,7 @@ root = tk.Tk()
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
+#background image
 background_image = tk.PhotoImage(file="bgimage.png")
 background_label = tk.Label(root, image=background_image)
 background_label.place(relwidth=1, relheight=1)
@@ -30,16 +39,14 @@ jsonn = data.json()
 jsonn = jsonn[0]["shortdef"]
 result = ""
 for indx, definition in enumerate(jsonn):
-    result += f"{indx + 1}: {''.join(definition)} \n"
-
-
+    result += f"{indx + 1}: {''.join(definition.capitalize())} \n"
 
 #word of the day at the top
-word = tk.Label(display_frame, text=WORD, font="arial 30")
+word = tk.Label(display_frame, text=WORD.title(), font="arial 30")
 word.place(relx=0.5, rely=0.02, relwidth=0.97, relheight=0.3, anchor="n")
 
 #word definition below wotd
-definition = tk.Message(display_frame, text = result, font="arial 14", width="400") 
+definition = tk.Message(display_frame, text = result, font="arial 12", width="450") 
 definition.place(relx=0.5, rely=0.35, relwidth=0.97, relheight=0.63, anchor="n")
 
 #second window within window
@@ -80,7 +87,7 @@ add_button.place(relx=0.67, rely=0.5, relwidth=0.3, relheight=0.4)
 
 
 
-
+#make textbox clear when a word is added or deleted
 
 #everyday is a random with time
 # figure out how to make it send a text message every day
