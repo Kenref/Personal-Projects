@@ -1,2 +1,5 @@
 requiem
 carriage
+mangoes
+apples
+cup
