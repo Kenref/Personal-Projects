@@ -4,22 +4,25 @@ import time
 import random
 import schedule
 
+
+#initialize the window
+root = tk.Tk()
+root.title("Word of the day")
+root.geometry("500x550")
+
 #picking a random word every day
 with open("words.txt") as file:
     word_list = file.read()
     word_list = word_list.split("\n")
     wotd = random.choice(word_list[:-1])
 
-#setting size or window and word of the day
-HEIGHT = 500
-WIDTH = 550
+
 WORD = wotd
 
-#initialize the window
-root = tk.Tk()
+
 
 #window size
-canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
+canvas = tk.Canvas()
 canvas.pack()
 
 #background image
