@@ -14,10 +14,7 @@ root.geometry("500x550")
 with open("words.txt") as file:
     word_list = file.read()
     word_list = word_list.split("\n")
-    wotd = random.choice(word_list[:-1])
-
-
-WORD = wotd
+    WORD = random.choice(word_list[:-1])
 
 
 
